@@ -2,16 +2,17 @@
 {
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"files.exclude": {
-		"dist": false // set this to true to hide the "out" folder with the compiled JS files
+		"node_modules": true,
+		"dist": false // set this to true to hide the "dist" folder with the compiled JS files
 	},
 	"search.exclude": {
-		"dist": true // set this to false to include "out" folder in search results
+		"dist": true // set this to false to include "dist" folder in search results
 	},
 	// Turn off tsc task auto detection since we have the necessary tasks as npm scripts
-	"typescript.tsc.autoDetect": "off",
-	"typescript.tsdk": "node_modules\\typescript\\lib",
+	"js/ts.tsc.autoDetect": "off",
+	"js/ts.tsdk.path": "node_modules\\typescript\\lib",
 	"files.eol": "\n",
-	"typescript.preferences.quoteStyle": "double",
+	"js/ts.preferences.quoteStyle": "double",
 	"editor.formatOnSave": true,
 	"[typescriptreact]": {
 	"editor.defaultFormatter": "esbenp.prettier-vscode"

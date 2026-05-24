@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import { TelemetryReporter } from "@vscode/extension-telemetry";
 import * as vscode from "vscode";
 import {
 	HexDocumentEdit,
@@ -44,13 +43,12 @@ const editorSettingsKeys = Object.keys(defaultEditorSettings) as readonly (keyof
 export class HexEditorProvider implements vscode.CustomEditorProvider<HexDocument> {
 	public static register(
 		context: vscode.ExtensionContext,
-		telemetryReporter: TelemetryReporter,
 		dataInspectorView: DataInspectorView,
 		registry: HexEditorRegistry,
 	): vscode.Disposable {
 		return vscode.window.registerCustomEditorProvider(
 			HexEditorProvider.viewType,
-			new HexEditorProvider(context, telemetryReporter, dataInspectorView, registry),
+			new HexEditorProvider(context, dataInspectorView, registry),
 			{
 				supportsMultipleEditorsPerDocument: false,
 			},
@@ -61,7 +59,6 @@ export class HexEditorProvider implements vscode.CustomEditorProvider<HexDocumen
 
 	constructor(
 		private readonly _context: vscode.ExtensionContext,
-		private readonly _telemetryReporter: TelemetryReporter,
 		private readonly _dataInspectorView: DataInspectorView,
 		private readonly _registry: HexEditorRegistry,
 	) {}
@@ -76,7 +73,6 @@ export class HexEditorProvider implements vscode.CustomEditorProvider<HexDocumen
 		const { document, accessor } = await HexDocument.create(
 			uri,
 			openContext,
-			this._telemetryReporter,
 			diff.builder,
 		);
 		const disposables: vscode.Disposable[] = [];
