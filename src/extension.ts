@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import { TelemetryReporter } from "@vscode/extension-telemetry";
 import * as vscode from "vscode";
 import { HexDocumentEditOp } from "../shared/hexDocumentModel";
 import { openCompareSelected } from "./compareSelected";
@@ -16,15 +15,6 @@ import { showSelectBetweenOffsets } from "./selectBetweenOffsets";
 import StatusEditMode from "./statusEditMode";
 import StatusFocus from "./statusFocus";
 import StatusHoverAndSelection from "./statusHoverAndSelection";
-
-function readConfigFromPackageJson(extension: vscode.Extension<any>): {
-	aiKey: string;
-} {
-	const packageJSON = extension.packageJSON;
-	return {
-		aiKey: packageJSON.aiKey,
-	};
-}
 
 function reopenWithHexEditor() {
 	const activeTabInput = vscode.window.tabGroups.activeTabGroup.activeTab?.input as {
@@ -50,15 +40,12 @@ export async function activate(context: vscode.ExtensionContext) {
 	const registry = new HexEditorRegistry(initWorker);
 	// Register the data inspector as a separate view on the side
 	const dataInspectorProvider = new DataInspectorView(context.extensionUri, registry);
-	const configValues = readConfigFromPackageJson(context.extension);
 	context.subscriptions.push(
 		registry,
 		dataInspectorProvider,
 		vscode.window.registerWebviewViewProvider(DataInspectorView.viewType, dataInspectorProvider),
 	);
 
-	const telemetryReporter = new TelemetryReporter(configValues.aiKey);
-	context.subscriptions.push(telemetryReporter);
 	const reopenWithCommand = vscode.commands.registerCommand(
 		"hexEditor.reopenFile",
 		reopenWithHexEditor,
@@ -140,7 +127,6 @@ export async function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(switchEditModeCommand);
 	context.subscriptions.push(reopenWithCommand);
 	context.subscriptions.push(openWithCommand);
-	context.subscriptions.push(telemetryReporter);
 	context.subscriptions.push(copyOffsetAsDec, copyOffsetAsHex);
 	context.subscriptions.push(compareSelectedCommand);
 	context.subscriptions.push(
@@ -149,7 +135,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		}),
 	);
 	context.subscriptions.push(
-		HexEditorProvider.register(context, telemetryReporter, dataInspectorProvider, registry),
+		HexEditorProvider.register(context, dataInspectorProvider, registry),
 	);
 }
 

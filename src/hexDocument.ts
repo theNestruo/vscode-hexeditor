@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import { TelemetryReporter } from "@vscode/extension-telemetry";
 import * as vscode from "vscode";
 import { HexDecorator } from "../shared/decorators";
 import { FileAccessor } from "../shared/fileAccessor";
@@ -29,7 +28,6 @@ export class HexDocument extends Disposable implements vscode.CustomDocument {
 	static async create(
 		uri: vscode.Uri,
 		{ backupId, untitledDocumentData }: vscode.CustomDocumentOpenContext,
-		telemetryReporter: TelemetryReporter,
 		diffModelBuilder: HexDiffModelBuilder | undefined,
 	): Promise<{ document: HexDocument; accessor: FileAccessor }> {
 		const accessor = await accessFile(uri, untitledDocumentData);
@@ -48,12 +46,6 @@ export class HexDocument extends Disposable implements vscode.CustomDocument {
 			: 0;
 
 		const fileSize = await accessor.getSize();
-		/* __GDPR__
-			"fileOpen" : {
-				"fileSize" : { "classification": "SystemMetaData", "purpose": "FeatureInsight", "isMeasurement": true }
-			}
-		*/
-		telemetryReporter.sendTelemetryEvent("fileOpen", {}, { fileSize: fileSize ?? 0 });
 
 		const maxFileSize =
 			(vscode.workspace.getConfiguration().get("hexeditor.maxFileSize") as number) * 1000000;
