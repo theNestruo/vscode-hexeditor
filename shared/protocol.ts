@@ -92,7 +92,7 @@ export interface SetEditModeMessage {
 
 export interface ReadRangeResponseMessage {
 	type: MessageType.ReadRangeResponse;
-	data: ArrayBuffer;
+	data: ArrayBufferLike;
 }
 
 export interface SearchResult {

@@ -1,5 +1,5 @@
 /** Reads a GUID/UUID at offset 0 from the buffer. (RFC 4122) */
-const getGUID = (arrayBuffer: ArrayBuffer, le: boolean) => {
+const getGUID = (arrayBuffer: ArrayBufferLike, le: boolean) => {
 	const buf = new Uint8Array(arrayBuffer);
 
 	const indices = le
@@ -12,7 +12,7 @@ const getGUID = (arrayBuffer: ArrayBuffer, le: boolean) => {
 };
 
 /** Reads a ULEB128 at offset 0 from the buffer. */
-const getULEB128 = (arrayBuffer: ArrayBuffer) => {
+const getULEB128 = (arrayBuffer: ArrayBufferLike) => {
 	const buf = new Uint8Array(arrayBuffer);
 
 	let result = 0n;
@@ -32,7 +32,7 @@ const getULEB128 = (arrayBuffer: ArrayBuffer) => {
 };
 
 /** Reads a SLEB128 at offset 0 from the buffer. */
-const getSLEB128 = (arrayBuffer: ArrayBuffer) => {
+const getSLEB128 = (arrayBuffer: ArrayBufferLike) => {
 	const buf = new Uint8Array(arrayBuffer);
 
 	let result = 0n;
@@ -56,7 +56,7 @@ const getSLEB128 = (arrayBuffer: ArrayBuffer) => {
 };
 
 /** Reads a uint24 at offset 0 from the buffer. */
-const getUint24 = (arrayBuffer: ArrayBuffer, le: boolean) => {
+const getUint24 = (arrayBuffer: ArrayBufferLike, le: boolean) => {
 	const buf = new Uint8Array(arrayBuffer);
 	return le ? buf[0] | (buf[1] << 8) | (buf[2] << 16) : (buf[0] << 16) | (buf[1] << 8) | buf[2];
 };
@@ -68,7 +68,7 @@ const getFloat16 = (exponentWidth: number, significandPrecision: number) => {
 	const exponentBias = 2 ** (exponentWidth - 1) - 1;
 	const exponentMin = 1 - exponentBias;
 
-	return (arrayBuffer: ArrayBuffer, le: boolean) => {
+	return (arrayBuffer: ArrayBufferLike, le: boolean) => {
 		const buf = new Uint8Array(arrayBuffer);
 		const uint16 = le ? buf[0] | (buf[1] << 8) : (buf[0] << 8) | buf[1];
 

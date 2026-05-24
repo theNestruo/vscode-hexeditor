@@ -1,21 +1,21 @@
+.vscodeignore
+.gitignore
+
 .vscode/**
 .vscode-test/**
-node_modules/**
-out
+.github/**
+
 media/**
+shared/**
 src/**
-.gitignore
-.github
-vsc-extension-quickstart.md
-**/tsconfig.json
-**/.eslintrc.json
-**/*.map
-**/*.ts
 .esbuild.config.js
-.eslintignore
-*.gif
-build
-*.tgz
+eslint.config.mjs
+package-lock.json
+tsconfig.json
+
+node_modules/**
+dist/**/*.map
+*.cpuprofile
 *.vsix
 
 # We need the codicon node module included for the fonts + icons to work
