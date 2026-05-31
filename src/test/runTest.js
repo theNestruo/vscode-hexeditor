@@ -22,9 +22,7 @@ async function main() {
       extensionTestsPath,
       launchArgs: [
         basedir,
-				'--disableExtensions',
-				'--skip-getting-started',
-        '--disable-user-env-probe',
+				'--disable-extensions',
         '--disable-workspace-trust',
       ],
     });
