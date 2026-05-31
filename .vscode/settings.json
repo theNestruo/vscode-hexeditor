@@ -1,6 +1,5 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"files.exclude": {
 		"node_modules": true,
 		"dist": false // set this to true to hide the "dist" folder with the compiled JS files
@@ -8,14 +7,17 @@
 	"search.exclude": {
 		"dist": true // set this to false to include "dist" folder in search results
 	},
+
 	// Turn off tsc task auto detection since we have the necessary tasks as npm scripts
 	"js/ts.tsc.autoDetect": "off",
 	"js/ts.tsdk.path": "node_modules\\typescript\\lib",
-	"files.eol": "\n",
 	"js/ts.preferences.quoteStyle": "double",
+
+    // Code style preferences
 	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"[typescriptreact]": {
-	"editor.defaultFormatter": "esbenp.prettier-vscode"
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"[typescript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -23,6 +25,8 @@
 	"[css]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
+	"files.eol": "\n",
+
 	"editor.codeActionsOnSave": {
 		"source.organizeImports": "explicit"
 	}

@@ -362,10 +362,15 @@
   "browser": "./dist/web/extension.js",
   "l10n": "./l10n",
   "scripts": {
-    "compile": "tsc --noEmit && node .esbuild.config.js",
-    "lint": "eslint src",
+		"vscode:prepublish": "npm run package",
+		"compile": "npm run check-types && npm run lint && node .esbuild.config.js",
+		"package": "npm run check-types && npm run lint && node .esbuild.config.js --production",
+		"check-types": "tsc --noEmit",
+		"lint": "eslint \"src/**/*.ts\"",
     "fmt": "prettier --write \"{src,media,shared}/**/*.{ts,tsx}\" && npm run lint -- --fix",
-    "watch": "node .esbuild.config.js --watch",
+		"watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node .esbuild.config.js --watch",
+		"watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "test": "tsc --noEmit && node ./src/test/runTest.js"
   },
   "devDependencies": {
